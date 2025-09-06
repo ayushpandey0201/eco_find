@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DistanceFilter = ({ distance, onDistanceChange, maxDistance = 1000 }) => {
+const DistanceFilter = ({ distance, onDistanceChange, maxDistance = 100 }) => {
   const handleSliderChange = (e) => {
     onDistanceChange(parseInt(e.target.value));
   };
@@ -15,12 +15,12 @@ const DistanceFilter = ({ distance, onDistanceChange, maxDistance = 1000 }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border">
-      <div className="flex items-center justify-between mb-3">
-        <label className="text-sm font-medium text-gray-700">
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <label className="text-lg font-semibold text-glass">
           Distance Filter
         </label>
-        <span className="text-sm text-primary-600 font-medium">
+        <span className="text-glass bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold text-lg">
           {formatDistance(distance)}
         </span>
       </div>
@@ -32,16 +32,27 @@ const DistanceFilter = ({ distance, onDistanceChange, maxDistance = 1000 }) => {
           max={maxDistance}
           value={distance}
           onChange={handleSliderChange}
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+          className="w-full h-3 rounded-full appearance-none cursor-pointer bg-white/10 backdrop-blur-sm"
           style={{
-            background: `linear-gradient(to right, #22c55e 0%, #22c55e ${(distance / maxDistance) * 100}%, #e5e7eb ${(distance / maxDistance) * 100}%, #e5e7eb 100%)`
+            background: `linear-gradient(to right, 
+              rgba(96, 165, 250, 0.8) 0%, 
+              rgba(168, 85, 247, 0.8) ${(distance / maxDistance) * 100}%, 
+              rgba(255, 255, 255, 0.1) ${(distance / maxDistance) * 100}%, 
+              rgba(255, 255, 255, 0.1) 100%)`
           }}
         />
         
-        <div className="flex justify-between text-xs text-gray-500 mt-1">
+        <div className="flex justify-between text-sm text-glass-muted mt-3">
           <span>1km</span>
-          <span>1000km</span>
+          <span>100km</span>
         </div>
+      </div>
+
+      {/* Distance markers */}
+      <div className="flex justify-between text-xs text-glass-muted mt-2">
+        <span>Nearby</span>
+        <span>City-wide</span>
+        <span>Regional</span>
       </div>
     </div>
   );

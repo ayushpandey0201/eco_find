@@ -9,9 +9,9 @@ const mockProductData = {
     id: '1',
     title: 'Vintage Leather Jacket',
     description: 'Authentic vintage leather jacket in excellent condition. This classic piece features genuine leather construction with a timeless design that never goes out of style. Perfect for fall and winter seasons, offering both warmth and style. The jacket has been well-maintained and shows minimal signs of wear.',
-    price: 89.99,
+    price: 7500,
     category: 'Clothing',
-    location: 'Downtown, San Francisco',
+    location: 'Connaught Place, Delhi',
     distance: 2.5,
     images: [
       'https://via.placeholder.com/600x400?text=Leather+Jacket+Front',
@@ -21,11 +21,11 @@ const mockProductData = {
     ],
     seller: {
       id: 'seller1',
-      name: 'Sarah Johnson',
+      name: 'Priya Sharma',
       rating: 4.8,
       reviewCount: 23,
       memberSince: '2022',
-      avatar: 'https://via.placeholder.com/100x100?text=SJ'
+      avatar: 'https://via.placeholder.com/100x100?text=PS'
     },
     condition: 'Excellent',
     size: 'Medium',
@@ -58,9 +58,10 @@ const ProductDetailsPage = () => {
   }, [id]);
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
+      maximumFractionDigits: 0,
     }).format(price);
   };
 

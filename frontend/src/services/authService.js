@@ -64,8 +64,8 @@ class GoogleAuthService {
       setTimeout(() => {
         resolve({
           id: 'mock_user_123',
-          name: 'John Doe',
-          email: 'john.doe@example.com',
+          name: 'Rajesh Kumar',
+          email: 'rajesh.kumar@gmail.com',
           imageUrl: 'https://via.placeholder.com/150',
           token: 'mock_token'
         });
