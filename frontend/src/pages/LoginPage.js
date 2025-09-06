@@ -47,7 +47,7 @@ const LoginPage = () => {
   const handleGoogleLogin = () => {
     setLoading(true);
     setError('');
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/login`;
+    window.location.href = 'http://localhost:8080/login';
   };
 
   return (
