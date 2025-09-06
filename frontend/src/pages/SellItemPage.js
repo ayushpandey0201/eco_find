@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // 👈 Import axios
 import Header from '../components/Header';
 import ImageUpload from '../components/ImageUpload';
 
@@ -213,10 +214,10 @@ const SellItemPage = () => {
               {/* Price */}
               <div>
                 <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
-                  Price (USD) *
+                  Price (INR) *
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-2 text-gray-500">₹</span>
                   <input
                     type="number"
                     id="price"

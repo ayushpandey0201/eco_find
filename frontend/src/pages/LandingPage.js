@@ -133,48 +133,60 @@ const LandingPage = () => {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <div className="hero-glass p-8 mb-10 text-center float-animation">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-glass">
-            Discover Sustainable
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-200">
-              Treasures
-            </span>
-          </h1>
-          <p className="text-glass-secondary text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+        <div className="hero-natural p-10 mb-12 text-center paper-texture">
+          <div className="flex items-center justify-center mb-6">
+            <svg className="w-8 h-8 text-earth-green mr-3" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <h1 className="text-3xl md:text-5xl font-medium text-warm heading-handwritten">
+              Discover Sustainable Treasures
+            </h1>
+          </div>
+          
+          <p className="text-warm-secondary text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
             Give pre-loved items a second chance while reducing waste and saving money. 
-            Find amazing deals in your neighborhood across India.
+            Find amazing deals in your neighborhood across India — thoughtfully curated, 
+            sustainably sourced.
           </p>
           
           {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto mb-8">
             <div className="relative">
-              <svg className="absolute left-4 top-4 w-6 h-6 text-glass-muted" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="absolute left-4 top-4 w-5 h-5 text-warm-muted" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
               </svg>
               <input
                 type="text"
-                placeholder="Search for items across India..."
+                placeholder="Search for treasures across India..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="input-glass w-full pl-14 pr-6 py-4 text-lg"
+                className="input-natural w-full pl-12 pr-6 py-4 text-base"
               />
             </div>
           </div>
 
           {/* Quick Stats */}
-          <div className="grid grid-cols-3 gap-6 mt-10 max-w-2xl mx-auto">
+          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-glass">{mockProducts.length}+</div>
-              <div className="text-glass-secondary text-sm">Items Listed</div>
+              <div className="text-2xl font-semibold text-earth-green">{mockProducts.length}+</div>
+              <div className="text-warm-muted text-sm">Items Listed</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-glass">50+</div>
-              <div className="text-glass-secondary text-sm">Cities Covered</div>
+              <div className="text-2xl font-semibold text-earth-green">50+</div>
+              <div className="text-warm-muted text-sm">Cities Covered</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-glass">1000+</div>
-              <div className="text-glass-secondary text-sm">Happy Users</div>
+              <div className="text-2xl font-semibold text-earth-green">1000+</div>
+              <div className="text-warm-muted text-sm">Happy Users</div>
             </div>
+          </div>
+
+          {/* Mission Statement */}
+          <div className="mt-8 natural-card p-4 max-w-xl mx-auto">
+            <p className="text-sm text-warm-secondary italic">
+              "Every item has a story. Every purchase makes a difference. 
+              Together, we're building a more sustainable tomorrow."
+            </p>
           </div>
         </div>
 
@@ -183,7 +195,7 @@ const LandingPage = () => {
           {/* Sidebar Filters */}
           <div className="lg:w-72 space-y-6">
             {/* Distance Filter */}
-            <div className="filter-glass p-6">
+            <div className="filter-cozy p-6">
               <DistanceFilter
                 distance={distanceFilter}
                 onDistanceChange={setDistanceFilter}
@@ -191,8 +203,8 @@ const LandingPage = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="filter-glass p-6">
-              <h3 className="text-lg font-semibold text-glass mb-4">Categories</h3>
+            <div className="filter-cozy p-6">
+              <h3 className="text-lg font-semibold text-warm mb-4 heading-handwritten">Browse by Category</h3>
               <div className="space-y-3">
                 {categories.map((category) => (
                   <label key={category} className="flex items-center group cursor-pointer">
@@ -207,19 +219,44 @@ const LandingPage = () => {
                       />
                       <div className={`w-5 h-5 rounded-full border-2 transition-all duration-300 ${
                         selectedCategory === category 
-                          ? 'border-white bg-gradient-to-r from-blue-400 to-purple-400' 
-                          : 'border-white/30 group-hover:border-white/50'
+                          ? 'border-earth-green bg-earth-green' 
+                          : 'border-gray-300 group-hover:border-earth-green'
                       }`}>
                         {selectedCategory === category && (
                           <div className="w-2 h-2 bg-white rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
                         )}
                       </div>
                     </div>
-                    <span className="ml-3 text-glass-secondary group-hover:text-glass transition-colors duration-300 font-medium">
+                    <span className="ml-3 text-warm-secondary group-hover:text-warm transition-colors duration-300 font-medium">
                       {category}
                     </span>
                   </label>
                 ))}
+              </div>
+            </div>
+
+            {/* Sustainability Info */}
+            <div className="filter-cozy p-6">
+              <h3 className="text-lg font-semibold text-warm mb-4 heading-handwritten">Why Choose Second-Hand?</h3>
+              <div className="space-y-3 text-sm text-warm-secondary">
+                <div className="flex items-start">
+                  <svg className="w-4 h-4 text-earth-green mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>Reduces environmental impact</span>
+                </div>
+                <div className="flex items-start">
+                  <svg className="w-4 h-4 text-earth-green mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>Saves money & finds unique items</span>
+                </div>
+                <div className="flex items-start">
+                  <svg className="w-4 h-4 text-earth-green mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span>Supports local community</span>
+                </div>
               </div>
             </div>
           </div>
@@ -227,17 +264,17 @@ const LandingPage = () => {
           {/* Main Content */}
           <div className="flex-1">
             {/* Results Count */}
-            <div className="glass-card p-4 mb-8">
+            <div className="natural-card p-5 mb-8">
               <div className="flex items-center justify-between">
-                <p className="text-glass text-lg font-medium">
-                  {filteredProducts.length} items found
+                <p className="text-warm text-lg font-medium">
+                  {filteredProducts.length} treasures found
                   {selectedCategory !== 'All' && (
-                    <span className="text-glass-secondary"> in {selectedCategory}</span>
+                    <span className="text-warm-secondary"> in {selectedCategory}</span>
                   )}
                 </p>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-glass-secondary text-sm">Live Updates</span>
+                  <div className="w-2 h-2 bg-earth-green rounded-full animate-pulse"></div>
+                  <span className="text-warm-secondary text-sm">Fresh finds</span>
                 </div>
               </div>
             </div>
@@ -247,7 +284,7 @@ const LandingPage = () => {
               {filteredProducts.map((product, index) => (
                 <div 
                   key={product.id}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ animationDelay: `${index * 0.15}s` }}
                   className="animate-fade-in-up"
                 >
                   <ProductCard product={product} />
@@ -257,15 +294,16 @@ const LandingPage = () => {
 
             {/* Empty State */}
             {filteredProducts.length === 0 && (
-              <div className="hero-glass p-12 text-center">
-                <div className="w-24 h-24 mx-auto mb-6 glass-card flex items-center justify-center">
-                  <svg className="w-12 h-12 text-glass-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.5-.9-6.1-2.372M15 21H9a6 6 0 01-6-6V9a6 6 0 016-6h6a6 6 0 016 6v6a6 6 0 01-6 6z" />
+              <div className="hero-natural p-12 text-center">
+                <div className="w-24 h-24 mx-auto mb-6 natural-card flex items-center justify-center">
+                  <svg className="w-12 h-12 text-earth-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-glass mb-2">No items found</h3>
-                <p className="text-glass-secondary mb-6">
-                  Try adjusting your filters or search terms to discover more treasures.
+                <h3 className="text-xl font-semibold text-warm mb-4 heading-handwritten">No treasures found</h3>
+                <p className="text-warm-secondary mb-6 max-w-md mx-auto">
+                  Don't worry! Try adjusting your filters or search terms to discover 
+                  more sustainable treasures waiting for their second chance.
                 </p>
                 <button 
                   onClick={() => {
@@ -273,9 +311,9 @@ const LandingPage = () => {
                     setSearchQuery('');
                     setDistanceFilter(25);
                   }}
-                  className="btn-glass-primary"
+                  className="btn-earth-primary"
                 >
-                  Reset Filters
+                  Reset Filters & Explore
                 </button>
               </div>
             )}

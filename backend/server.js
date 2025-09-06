@@ -61,11 +61,23 @@ app.get('/login', (req, res) => {
 
 
 
+// Import and register API routes
+const itemsRoutes = require('./routes/items');
+const messagesRoutes = require('./routes/messages');
+const usersRoutes = require('./routes/users');
+
+// API Routes
+app.use('/api/items', itemsRoutes);
+app.use('/api/messages', messagesRoutes);
+app.use('/api/users', usersRoutes);
+
 // Basic server check
 app.get('/', (req, res) => {
     res.json({
-        message: 'EcoFinds Backend API running!',
+        message: 'SecondChance Backend API running!',
+        version: '1.0.0',
         endpoints: {
+
             // Authentication
             login: 'GET /login',
             callback: 'GET /auth/google/callback',
@@ -98,6 +110,36 @@ app.get('/', (req, res) => {
             adminLogs: 'GET /api/admin-logs (requires admin auth)',
             createAdminLog: 'POST /api/admin-log (requires admin auth)',
             allUsers: 'GET /api/all-users (requires admin auth)'
+
+            auth: {
+                login: 'GET /login',
+                callback: 'GET /auth/google/callback',
+                logout: 'GET /auth/logout',
+                user: 'GET /auth/user (requires Bearer token)'
+            },
+            items: {
+                getAll: 'GET /api/items',
+                getById: 'GET /api/items/:id',
+                create: 'POST /api/items',
+                update: 'PUT /api/items/:id',
+                delete: 'DELETE /api/items/:id'
+            },
+            messages: {
+                getMessages: 'GET /api/messages/:chatId',
+                sendMessage: 'POST /api/messages',
+                getUserChats: 'GET /api/messages/chats/:userId',
+                createChat: 'POST /api/messages/chats',
+                markAsRead: 'PUT /api/messages/:messageId/read'
+            },
+            users: {
+                getProfile: 'GET /api/users/:id',
+                updateProfile: 'PUT /api/users/:id',
+                getUserItems: 'GET /api/users/:id/items',
+                getUserReviews: 'GET /api/users/:id/reviews',
+                addReview: 'POST /api/users/:id/reviews',
+                searchUsers: 'GET /api/users/search'
+            }
+
         }
     });
 });
