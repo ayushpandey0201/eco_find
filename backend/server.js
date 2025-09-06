@@ -46,59 +46,20 @@ const pool = mysql.createPool({
     }
 })();
 
-// Google OAuth Login
-app.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login-failed' }),
-    (req, res) => {
-        // Create JWT token
-        const token = jwt.sign(
-            {
-                id: req.user.googleId,
-                email: req.user.email,
-                name: req.user.name,
-                picture: req.user.picture
-            },
-            process.env.JWT_SECRET,
-            { expiresIn: process.env.JWT_EXPIRES_IN }
-        );
+// Authentication Routes
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
-        // Redirect to frontend LandingPage with token
-        res.redirect(`${process.env.FRONTEND_URL}/landing?token=${token}`);
-    }
-);
+// All App Routes (Landing, Profile, Reviews)
+const allRoutes = require('./routes/all-routes');
+app.use('/api', allRoutes);
 
-
-// Logout
-app.get('/auth/logout', (req, res) => {
-    req.logout(err => {
-        if (err) return res.status(500).json({ success: false, error: 'Logout failed' });
-        res.json({ success: true, message: 'Logged out successfully' });
-    });
+// Redirect /login to /auth/google for convenience
+app.get('/login', (req, res) => {
+    res.redirect('/auth/google');
 });
 
-// Get current user info (JWT protected)
-app.get('/auth/user', authenticateToken, (req, res) => {
-    res.json({ success: true, user: req.user });
-});
 
-// Login failed
-app.get('/login-failed', (req, res) => {
-    res.status(401).json({ success: false, message: 'Google authentication failed' });
-});
-
-// JWT middleware
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.status(401).json({ success: false, error: 'Access token required' });
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.status(403).json({ success: false, error: 'Invalid or expired token' });
-        req.user = user;
-        next();
-    });
-}
 
 // Import and register API routes
 const itemsRoutes = require('./routes/items');
@@ -116,6 +77,40 @@ app.get('/', (req, res) => {
         message: 'SecondChance Backend API running!',
         version: '1.0.0',
         endpoints: {
+
+            // Authentication
+            login: 'GET /login',
+            callback: 'GET /auth/google/callback',
+            logout: 'GET /auth/logout',
+            user: 'GET /auth/user (requires Bearer token)',
+            
+            // Landing Page
+            landingItems: 'GET /api/landing-items',
+            categories: 'GET /api/categories',
+            searchItems: 'GET /api/search-items?q=term',
+            
+            // Profile Page
+            myProfile: 'GET /api/my-profile (requires auth)',
+            userProfile: 'GET /api/user-profile/:userId',
+            myItems: 'GET /api/my-items (requires auth)',
+            myOrders: 'GET /api/my-orders (requires auth)',
+            
+            // Reviews Page
+            itemReviews: 'GET /api/item-reviews/:itemId',
+            myReviews: 'GET /api/my-reviews (requires auth)',
+            createReview: 'POST /api/create-review (requires auth)',
+            
+            // Sell Item Page
+            sellItem: 'POST /api/sell-item (requires seller auth)',
+            updateItem: 'PUT /api/update-item/:itemId (requires auth)',
+            deleteItem: 'DELETE /api/delete-item/:itemId (requires auth)',
+            
+            // Admin (Bonus)
+            adminStats: 'GET /api/admin-stats (requires admin auth)',
+            adminLogs: 'GET /api/admin-logs (requires admin auth)',
+            createAdminLog: 'POST /api/admin-log (requires admin auth)',
+            allUsers: 'GET /api/all-users (requires admin auth)'
+
             auth: {
                 login: 'GET /login',
                 callback: 'GET /auth/google/callback',
@@ -144,6 +139,7 @@ app.get('/', (req, res) => {
                 addReview: 'POST /api/users/:id/reviews',
                 searchUsers: 'GET /api/users/search'
             }
+
         }
     });
 });
